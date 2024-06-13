@@ -3,6 +3,17 @@ body {
   font-size: 16px;
 }
 
+.modal {
+  padding: 5px;
+  max-width: 50ch;
+
+  & > * { 
+    margin: 0 0 0.5rem 0  
+  }
+
+}
+
+
 .swim-lanes {
   min-height: 60vh;
 }

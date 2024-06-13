@@ -22,17 +22,13 @@
   </header>
   <div class="container">
     <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
+      <button class="button btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
-    <div id="taskModal">
-        <div class="modal-content">
-          <div class="modal-header">
+    <dialog id="modal">
             <h4 class="modal-title">New Task</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
+            <button type="button" class="button btn-close" data-bs-dismiss="modal"></button>
     
-          <!-- Modal body -->
           <div class="modal-body">
             <form id="addTaskForm">
               <label for="taskTitle" class="form-label">Task Title</label>
@@ -46,15 +42,9 @@
           <label for="taskDueDate" class="form-label">Due Date</label>
           <input type="date" class="form-control" id="taskDueDate" required>
         </div>
-        <button type="submit" class="btn btn-primary" id="submitTaskBtn">Add Task</button>
+        <button type="submit" class="btn btn-primary" id="submitTaskBtn">Let's Do This!</button>
       </form>
-    </div>
-    
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-          </div>
-    
+    </dialog>   
         </div>
       </div>
     </div>

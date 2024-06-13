@@ -1,3 +1,15 @@
+const modal = document.querySelector('#modal');
+const openModal = document.querySelector('.btn-success');
+const closeModal = document.querySelector('.btn-close');
+
+openModal.addEventListener('click', () => {
+    modal.showModal();
+})
+closeModal.addEventListener('click', () => {
+modal.close();
+})
+
+
 
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
