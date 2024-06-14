@@ -14,18 +14,25 @@ const taskDescription = document.querySelector('#taskDescription');
 const taskDueDate = document.querySelector('#taskDueDate');
 const addTaskButton = document.querySelector('#submitTaskBtn');
 
-//
+//event listener for submit:
+addTaskButton.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const newTask = {
+        title: taskTitle.value,
+        description: taskDescription.value,
+        dueDate: taskDueDate.value
+    };
+
+    localStorage.setItem('newTask', JSON.stringify(newTask));
+    renderMessage();
+});
+
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Generate a unique task ID
-function generateTaskId() {
-      nextId++;
-
-    localStorage.setItem("nextId", JSON.stringify(nextId));
-  }
-
 // Todo: create a function to create a task card
 function createTaskCard(task) {
     const taskCardDiv = document.createElement("div");
