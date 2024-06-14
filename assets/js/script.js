@@ -8,6 +8,7 @@ openModal.addEventListener('click', () => {
 closeModal.addEventListener('click', () => {
 modal.close();
 })
+
 // setting up variables:
 const taskTitle = document.querySelector('#taskTitle');
 const taskDescription = document.querySelector('#taskDescription');
@@ -29,9 +30,12 @@ addTaskButton.addEventListener('click', function (event) {
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
     
-    renderMessage();
 
 });
+
+addTaskButton.addEventListener('click', () => {
+    modal.close();
+})
 
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
