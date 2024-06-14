@@ -8,37 +8,21 @@ openModal.addEventListener('click', () => {
 closeModal.addEventListener('click', () => {
 modal.close();
 })
+// setting up variables:
+const taskTitle = document.querySelector('#taskTitle');
+const taskDescription = document.querySelector('#taskDescription');
+const taskDueDate = document.querySelector('#taskDueDate');
+const addTaskButton = document.querySelector('#submitTaskBtn');
 
+//
 // Retrieve tasks and nextId from localStorage
-function read() {
-    const json =localStorage.getItem('modal-data');
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
- taskList = [
-    { id: 1, content: "task 1"},
-    { id: 2, content: "task 2"},
-    { id: 3, content: "task 3"},
-];
-let nextID =  4;
-
 // Generate a unique task ID
 function generateTaskId() {
-  // Get the current timestamp
-  const timestamp = new Date().getTime();
+      nextId++;
 
-  // Get the current task ID counter from localStorage
-  const nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
-
-  // Increment the task ID counter
-  nextId++;
-
-  // Save the updated task ID counter to localStorage
-  // Return the unique task ID as a string
-  return "task-" + timestamp + "-" + nextId;
-}
-function save(data) {
-    localStorage.setItem("tasks", JSON.stringify(taskList));
     localStorage.setItem("nextId", JSON.stringify(nextId));
   }
 
