@@ -26,28 +26,21 @@
     </div>
     <!-- Todo: Create a modal with a form to add tasks -->
     <dialog id="modal">
-            <h4 class="modal-title">New Task</h4>
-            <button type="button" class="button btn-close" data-bs-dismiss="modal"></button>
+      <h4 class="modal-title">New Task</h4>
+        <button type="button" class="button btn-close" data-bs-dismiss="modal"></button>
     
-          <div class="modal-body">
+      <div class="modal-body">
             <form id="addTaskForm">
               <label for="taskTitle" class="form-label">Task Title</label>
-              <input type="text" class="form-control" id="taskTitle" required>
-          </div>
-        <div class="mb-3">
-          <label for="taskDescription" class="form-label">Task Description</label>
-          <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="taskDueDate" class="form-label">Due Date</label>
-          <input type="date" class="form-control" id="taskDueDate" required>
-        </div>
-        <button type="submit" class="btn btn-primary" id="submitTaskBtn">Let's Do This!</button>
-      </form>
-    </dialog>   
-        </div>
-      </div>
-    </div>
+              <input type="text" class="form-control" id="taskTitle" required>      
+              <label for="taskDescription" class="form-label">Task Description</label>
+                <textarea class="form-control" id="taskDescription" rows="3" required></textarea>
+              <label for="taskDueDate" class="form-label">Due Date</label>
+              <input type="date" class="form-control" id="taskDueDate" required>
+              <button type="submit" id="submitTaskBtn">Add +</button>
+            </form>
+       </div>
+     </dialog>   
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
