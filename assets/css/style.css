@@ -45,3 +45,17 @@ body {
 .task-card:hover {
   cursor: grab;
 }
+.task-card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.overdue {
+  background-color: #f8d7da; 
+}
+
+.almost-due {
+  background-color: #fff3cd; 
+}
