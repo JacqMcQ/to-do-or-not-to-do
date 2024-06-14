@@ -15,6 +15,7 @@ const taskDueDate = document.querySelector('#taskDueDate');
 const addTaskButton = document.querySelector('#submitTaskBtn');
 
 //event listener for submit:
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 addTaskButton.addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -24,8 +25,12 @@ addTaskButton.addEventListener('click', function (event) {
         dueDate: taskDueDate.value
     };
 
-    localStorage.setItem('newTask', JSON.stringify(newTask));
+    tasks.push(newTask);
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    
     renderMessage();
+
 });
 
 // Retrieve tasks and nextId from localStorage
@@ -69,11 +74,11 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-
 }
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    
 
 }
 
