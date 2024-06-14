@@ -4,8 +4,10 @@ body {
 }
 
 .modal {
+  display: flex;
   padding: 5px;
   max-width: 50ch;
+  background: green;
 
   & > * { 
     margin: 0 0 0.5rem 0  
@@ -13,6 +15,24 @@ body {
 
 }
 
+.modal * {
+  font-family: sans-serif
+}
+
+.modal-body {
+  flex: 1;
+}
+
+.modal-body:not(:last-child) {
+  margin-right: 30px;
+}
+
+.form-label {
+  margin-bottom: 20px;
+  font-size: 30px;
+  color:antiquewhite;
+  user-select: none;
+}
 
 .swim-lanes {
   min-height: 60vh;

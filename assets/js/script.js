@@ -9,32 +9,70 @@ closeModal.addEventListener('click', () => {
 modal.close();
 })
 
-
-
 // Retrieve tasks and nextId from localStorage
+function read() {
+    const json =localStorage.getItem('modal-data');
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
+
+ taskList = [
+    { id: 1, content: "task 1"},
+    { id: 2, content: "task 2"},
+    { id: 3, content: "task 3"},
+];
+let nextID =  4;
 
 // Generate a unique task ID
 function generateTaskId() {
   // Get the current timestamp
-  var timestamp = new Date().getTime();
+  const timestamp = new Date().getTime();
 
   // Get the current task ID counter from localStorage
-  var nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
+  const nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
 
   // Increment the task ID counter
   nextId++;
 
   // Save the updated task ID counter to localStorage
-  localStorage.setItem("nextId", JSON.stringify(nextId));
-
   // Return the unique task ID as a string
   return "task-" + timestamp + "-" + nextId;
 }
+function save(data) {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+    localStorage.setItem("nextId", JSON.stringify(nextId));
+  }
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+    const taskCardDiv = document.createElement("div");
+    taskCardDiv.classList.add("card", "border-light", "mb-3");
+
+    const taskCardHeaderDiv = document.createElement("div");
+    taskCardHeaderDiv.classList.add("card-header", "bg-white");
+
+    const taskTitleH2 = document.createElement("h2");
+    taskTitleH2.classList.add("card-title", "mb-1");
+    taskTitleH2.textContent = task.title;
+
+    taskCardHeaderDiv.appendChild(taskTitleH2);
+
+    const taskCardBodyDiv = document.createElement("div");
+    taskCardBodyDiv.classList.add("card-body", "bg-light");
+
+    const taskDescriptionP = document.createElement("p");
+    taskDescriptionP.classList.add("card-text");
+    taskDescriptionP.textContent = task.description;
+
+    const taskDueDateP = document.createElement("p");
+    taskDueDateP.classList.add("card-text");
+    taskDueDateP.textContent = "Due Date: " + task.dueDate;
+
+    taskCardBodyDiv.appendChild(taskDescriptionP);
+    taskCardBodyDiv.appendChild(taskDueDateP);
+    taskCardDiv.appendChild(taskCardHeaderDiv);
+    taskCardDiv.appendChild(taskCardBodyDiv);
+
+    return taskCardDiv;
 
 }
 
