@@ -1,32 +1,35 @@
-/* Ensure the card body has enough padding and space for dragging */
+
 .card-body {
-    min-height: 50px; /* Adjust height as needed */
-    padding: 10px;
+    min-height: 50px; 
+    padding: 20px;
 }
 
-/* Style the task cards */
+
 .task-card {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
-    cursor: move; /* Ensure the cursor changes to indicate draggable */
+    cursor: move; 
 }
 
-/* Styling for different task statuses */
+
 .task-card.overdue {
     background-color: rgb(250, 53, 53);
+    padding: 10px;
 }
 
 .task-card.almost-due {
     background-color: rgb(248, 250, 116);
+    padding: 10px;
 }
 
-/* Placeholder style */
+
 .task-placeholder {
     background-color: #f0f0f0;
     border: 1px dashed #ddd;
-    min-height: 50px; /* Same as card-body min-height */
+    min-height: 50px;
     margin-bottom: 10px;
+    padding: 10px;
 }
