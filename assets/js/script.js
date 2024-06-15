@@ -33,7 +33,22 @@ function generateTaskId() {
     }
 
 // Create a function to render the task list and make cards draggable
-    // Function to render the task list and make cards draggable
+function renderTaskList() {
+    const latestTask = todoList[todoList.length - 1]; // Get the latest added task
+
+    if (latestTask) {
+        const taskCard = createTaskCard(latestTask);
+        $(`#${latestTask.status}-cards`).append(taskCard); // Append to the correct lane
+    }
+
+    // Make task cards draggable
+    $('.task-card').draggable({
+        revert: 'invalid',
+        helper: 'clone',
+        zIndex: 100
+    });
+}
+    
     function renderTaskList() {
         // Clear existing tasks before rendering
         $('#todo-cards').empty();
@@ -63,7 +78,7 @@ function generateTaskId() {
     }
 
     // Initialize Sortable and Droppable for lanes
-    $('#to-do, #in-progress, #done').sortable({
+    $('#to-do-card, #in-progress-card, #done-card').sortable({
         connectWith: '.card-body',
         placeholder: 'task-placeholder',
         start: function (event, ui) {
@@ -85,34 +100,80 @@ function generateTaskId() {
                 renderTaskList(); // Re-render task list after status update
             }
         }
-    });
+    }).disableSelection();
     
-    // Add event listener for form submission
-$('#addTaskForm').on('submit', function(event) {
-    event.preventDefault();
+    $('#addTaskForm').on('submit', function (event) {
+        event.preventDefault();
+    
+        const newTask = {
+            id: generateTaskId(),
+            title: $('#taskTitle').val(),
+            description: $('#taskDescription').val(),
+            deadline: $('#taskDueDate').val(),
+            status: 'to-do' // Initial status
+        };
+    
+        todoList.push(newTask);
+    
+        localStorage.setItem('tasks', JSON.stringify(todoList));
+        localStorage.setItem('nextId', JSON.stringify(nextId));
+    
+        renderTaskList(); 
 
-    const newTask = {
-        id: generateTaskId(),
-        title: $('#taskTitle').val(),
-        description: $('#taskDescription').val(),
-        deadline: $('#taskDueDate').val(),
-        status: 'to-do'
-    };
 
-    todoList.push(newTask);
-
-    localStorage.setItem('tasks', JSON.stringify(todoList));
-    localStorage.setItem('nextId', JSON.stringify(nextId));
-
-    renderTaskList();
-
-
-    $('#addTaskForm')[0].reset();
+    $('#addTaskForm')[0].reset(); // Reset form fields
 });
 
+// Initial rendering of existing tasks
 renderTaskList();
 
-function renderTaskList() {
+    // Add event listener for form submission
+    function handleAddTask(event) {
+        event.preventDefault(); // Prevent form submission
+    
+        // Get form values
+        const taskTitle = $('#taskTitle').val();
+        const taskDescription = $('#taskDescription').val();
+        const taskDueDate = $('#taskDueDate').val();
+    
+        // Validate form values (optional)
+        if (!taskTitle || !taskDueDate) {
+            alert('Please fill out all required fields.');
+            return;
+        }
+    
+        // Create new task object
+        const newTask = {
+            id: generateTaskId(), // Assuming you have a function to generate unique IDs
+            title: taskTitle,
+            description: taskDescription,
+            deadline: taskDueDate,
+            status: 'to-do' // Initial status
+        };
+    
+        // Add new task to todoList
+        todoList.push(newTask);
+    
+        // Optionally, update localStorage
+        localStorage.setItem('tasks', JSON.stringify(todoList));
+    
+        // Update UI
+        renderTaskList();
+    
+        // Reset form fields
+        $('#addTaskForm')[0].reset();
+    
+        // Close the modal
+        $('#formModal').modal('hide');
+    }
+    
+    // Add event listener to the form for submission
+    $('#addTaskForm').on('submit', handleAddTask);
+    
+    // Add event listener to the "Add" button inside the modal
+    $('#submit-btn').on('click', function() {
+        handleAddTask(event); // Call handleAddTask function
+    });function renderTaskList() {
     $('#to-do-cards, #in-progress-cards, #done-cards').empty();
 
     todoList.forEach(task => {
@@ -126,3 +187,6 @@ function renderTaskList() {
         zIndex: 100
     });
     }
+
+    
+    
