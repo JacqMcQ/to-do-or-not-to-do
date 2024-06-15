@@ -63,9 +63,10 @@ $(document).ready(function() {
             }
         });
 
-        // Initialize Sortable for swim lanes
+        // Initialize Sortable for swim lanes***NotFunctioning DEBUG
+ // Initialize Sortable for swim lanes
         $('#todo-cards, #in-progress-cards, #done-cards').sortable({
-            connectWith: '.card-body',
+            connectWith: '.connectedSortable',
             placeholder: 'task-placeholder',
             start: function(event, ui) {
                 ui.item.addClass('dragging');
@@ -75,7 +76,7 @@ $(document).ready(function() {
 
                 // Update task status when dropped into a new lane
                 const taskId = ui.item.data('id');
-                const newStatus = ui.item.parent().parent().attr('id').replace('-cards', ''); // Get new status
+                const newStatus = ui.item.parent().parent().attr('id').replace('-cards', '');
 
                 // Find the task in todoList and update its status
                 const taskIndex = todoList.findIndex(task => task.id === taskId);
