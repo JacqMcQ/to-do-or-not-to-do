@@ -78,29 +78,19 @@ function renderTaskList() {
     }
 
     // Initialize Sortable and Droppable for lanes
-    $('#to-do-card, #in-progress-card, #done-card').sortable({
-        connectWith: '.card-body',
-        placeholder: 'task-placeholder',
-        start: function (event, ui) {
-            ui.item.toggleClass('dragging');
-        },
-        stop: function (event, ui) {
-            ui.item.toggleClass('dragging');
-
-            // Update task status when dropped into a new lane
-            const taskId = ui.item.data('task-id');
-            const newStatus = ui.item.parent().parent().attr('id'); // Get parent card's ID
-
-            // Find the task in todoList and update its status
-            const taskIndex = todoList.findIndex(task => task.id === taskId);
-            if (taskIndex !== -1) {
-                todoList[taskIndex].status = newStatus;
-
-                localStorage.setItem('tasks', JSON.stringify(todoList));
-                renderTaskList(); // Re-render task list after status update
+    $(document).ready(function() {
+        $('.connectedSortable').sortable({
+            connectWith: '.connectedSortable',
+            placeholder: 'task-placeholder',
+            start: function(event, ui) {
+                ui.item.toggleClass('dragging');
+            },
+            stop: function(event, ui) {
+                ui.item.toggleClass('dragging');
+                // Update task status or perform other actions here
             }
-        }
-    }).disableSelection();
+        }).disableSelection();
+    });
     
     $('#addTaskForm').on('submit', function (event) {
         event.preventDefault();
@@ -110,7 +100,7 @@ function renderTaskList() {
             title: $('#taskTitle').val(),
             description: $('#taskDescription').val(),
             deadline: $('#taskDueDate').val(),
-            status: 'to-do' // Initial status
+            status: 'to-do' 
         };
     
         todoList.push(newTask);
@@ -125,7 +115,7 @@ function renderTaskList() {
 });
 
 // Initial rendering of existing tasks
-renderTaskList();
+    renderTaskList();
 
     // Add event listener for form submission
     function handleAddTask(event) {
