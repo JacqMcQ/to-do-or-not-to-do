@@ -1,13 +1,13 @@
 
 // Retrieve tasks and nextId from localStorage
 let todoList = JSON.parse(localStorage.getItem("tasks")) || [];
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+let nextId = JSON.parse(localStorage.getItem("nextId")) || 1;
 
 // Generate a unique task ID
 function generateTaskId() {
     nextId++;
     localStorage.setItem("nextId", JSON.stringify(nextId));
-    return nextId;
+    return nextId++;
 }
     // Function to create a task card
     function createTaskCard(task) {
@@ -15,7 +15,8 @@ function generateTaskId() {
 
         const today = dayjs();
         const dueDate = dayjs(task.deadline);
-        if (dueDate.isAfter(today, 'day')) {
+
+        if (dueDate.isBefore(today, 'day')) {
             taskCard.addClass('overdue');
         } else if (dueDate.diff(today, 'day') <= 1) {
             taskCard.addClass('almost-due');
