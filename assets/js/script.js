@@ -26,12 +26,16 @@ function generateTaskId() {
         const deadlineElement = $('<p>').text(`Deadline: ${task.deadline}`);
         const descriptionElement = $('<p>').text(task.description);
 
+        const deleteButton = $('<button>').addClass('delete-btn').text('Delete');
+        deleteButton.on('click', function() {
+            deleteTask(task.id); // Call deleteTask function with task id
+        });
+
         // Append elements to task card
-        taskCard.append(titleElement, deadlineElement, descriptionElement);
+        taskCard.append(titleElement, deadlineElement, descriptionElement,deleteButton);
 
         return taskCard;
     }
-
 // Create a function to render the task list and make cards draggable
 function renderTaskList() {
     const latestTask = todoList[todoList.length - 1]; // Get the latest added task
@@ -79,18 +83,18 @@ function renderTaskList() {
 
     // Initialize Sortable and Droppable for lanes
     $(document).ready(function() {
-        $('.connectedSortable').sortable({
-            connectWith: '.connectedSortable',
-            placeholder: 'task-placeholder',
-            start: function(event, ui) {
-                ui.item.toggleClass('dragging');
-            },
-            stop: function(event, ui) {
-                ui.item.toggleClass('dragging');
-                // Update task status or perform other actions here
-            }
-        }).disableSelection();
-    });
+    $('.connectedSortable').sortable({
+        connectWith: '.connectedSortable',
+        placeholder: 'task-placeholder',
+        start: function(event, ui) {
+            ui.item.toggleClass('dragging');
+        },
+        stop: function(event, ui) {
+            ui.item.toggleClass('dragging');
+            // Update task status or perform other actions here
+        }
+    }).disableSelection();
+});
     
     $('#addTaskForm').on('submit', function (event) {
         event.preventDefault();
@@ -176,7 +180,19 @@ function renderTaskList() {
         helper: 'clone',
         zIndex: 100
     });
+    
     }
-
+    function deleteTask(taskId) {
+        // Find index of task in todoList
+        const taskIndex = todoList.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+            // Remove task from array
+            todoList.splice(taskIndex, 1);
     
+            // Update localStorage
+            localStorage.setItem('tasks', JSON.stringify(todoList));
     
+            // Re-render task list
+            renderTaskList();
+        }
+    }
