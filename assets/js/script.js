@@ -49,7 +49,7 @@ $(document).ready(function() {
             const taskCard = createTaskCard(task);
             $(`#${task.status}-cards`).append(taskCard); // Append to the correct lane
         });
-
+    }
         // Make task cards draggable
         $('.task-card').draggable({
             revert: 'invalid',
@@ -62,11 +62,10 @@ $(document).ready(function() {
                 $(this).removeClass('dragging');
             }
         });
-
+    
         // Initialize Sortable for swim lanes***NotFunctioning DEBUG
- // Initialize Sortable for swim lanes
         $('#todo-cards, #in-progress-cards, #done-cards').sortable({
-            connectWith: '.connectedSortable',
+            connectWith: '.connectedSo',
             placeholder: 'task-placeholder',
             start: function(event, ui) {
                 ui.item.addClass('dragging');
@@ -76,7 +75,7 @@ $(document).ready(function() {
 
                 // Update task status when dropped into a new lane
                 const taskId = ui.item.data('id');
-                const newStatus = ui.item.parent().parent().attr('id').replace('-cards', '');
+                const newStatus = ui.item.parent().parent().attr('id').replace('-cards', ''); // Get new status
 
                 // Find the task in todoList and update its status
                 const taskIndex = todoList.findIndex(task => task.id === taskId);
@@ -88,8 +87,28 @@ $(document).ready(function() {
                 }
             }
         }).disableSelection(); // Disable text selection during dragging
-    }
-
+    
+        //droppable function added:
+        $('#todo-cards, #in-progress-cards, #done-cards').droppable({
+            accept: '.task-card',
+            drop: function(event, ui) {
+                const droppedTaskId = ui.draggable.attr('data-id');
+                const newStatus = $(this).attr('id').replace('-cards', ''); // Get new status
+    
+                // Update task status when dropped into a new lane
+                const taskIndex = todoList.findIndex(task => task.id == droppedTaskId);
+                if (taskIndex !== -1) {
+                    todoList[taskIndex].status = newStatus;
+    
+                    // Update localStorage
+                    localStorage.setItem('tasks', JSON.stringify(todoList));
+                }
+    
+                // Render task list after dropping
+                renderTaskList();
+            }
+        });
+        
     // Function to delete a task
     function deleteTask(taskId) {
         todoList = todoList.filter(task => task.id !== taskId);
