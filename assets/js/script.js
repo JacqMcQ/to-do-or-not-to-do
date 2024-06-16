@@ -88,28 +88,27 @@ $(document).ready(function() {
             }
         }).disableSelection(); // Disable text selection during dragging
     
-        //droppable function added:
-        $('#todo-cards, #in-progress-cards, #done-cards').droppable({
+        $('.connectedSortable').droppable({
             accept: '.task-card',
             drop: function(event, ui) {
-                const droppedTaskId = ui.draggable.attr('data-id');
-                const newStatus = $(this).attr('id').replace('-cards', ''); // Get new status
-    
+                const droppedTask = ui.draggable;
+                const droppedTaskId = droppedTask.attr('data-id');
+                const newStatus = $(this).attr('id').replace('-cards', '');
+
                 // Update task status when dropped into a new lane
                 const taskIndex = todoList.findIndex(task => task.id == droppedTaskId);
                 if (taskIndex !== -1) {
                     todoList[taskIndex].status = newStatus;
-    
+
                     // Update localStorage
                     localStorage.setItem('tasks', JSON.stringify(todoList));
+
+                    // Move the task card to the new status lane
+                    droppedTask.detach().appendTo($(this));
                 }
-    
-                // Render task list after dropping
-                renderTaskList();
             }
         });
-        
-    // Function to delete a task
+        // Function to delete a task
     function deleteTask(taskId) {
         todoList = todoList.filter(task => task.id !== taskId);
         localStorage.setItem('tasks', JSON.stringify(todoList));
