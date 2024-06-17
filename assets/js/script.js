@@ -11,20 +11,24 @@ function generateTaskId() {
     return id;
 }
 
-// Function to create a task card
 function createTaskCard(task) {
     const taskCard = $('<div>').addClass('card draggable').attr('data-id', task.id);
 
-    const today = dayjs();
-    const dueDate = dayjs(task.deadline);
+    // Check if task status is not 'done'
     if (task.status !== 'done') {
+        const today = dayjs();
+        const dueDate = dayjs(task.deadline);
+
+        // Add 'overdue' class if task is overdue
         if (dueDate.isBefore(today, 'day')) {
             taskCard.addClass('overdue');
-        } else if (dueDate.diff(today, 'day') <= 1) {
+        }
+        // Add 'almost-due' class if task is almost due
+        else if (dueDate.diff(today, 'day') <= 1) {
             taskCard.addClass('almost-due');
         }
-
     }
+
     // Create elements for task details
     const titleElement = $('<h3>').text(task.title);
     const deadlineElement = $('<p>').text(`Deadline: ${task.deadline}`);
@@ -41,7 +45,6 @@ function createTaskCard(task) {
 
     return taskCard;
 }
-
 // Function to render the task list
 function renderTaskList() {
     $('#todo-cards, #in-progress-cards, #done-cards').empty();

@@ -14,21 +14,31 @@
     cursor: move; 
 }
 
+.notDue{
 
-.task-card.overdue {
+}
+.overdue {
     background-color: rgb(250, 53, 53);
     padding: 10px;
 }
 
-.task-card.almost-due {
+.almost-due {
     background-color: rgb(248, 250, 116);
     padding: 10px;
 }
 
-
+.delete-btn {
+  background-color: #0c0b0a; 
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff; 
+  border: none; 
+  padding: 5px 10px; 
+  cursor: pointer; 
+  margin-top: 10px;
+}
 .task-placeholder {
     background-color: #f0f0f0;
-    border: 1px dashed #ddd;
+    border: 5px dashed #ddd;
     min-height: 50px;
     margin-bottom: 10px;
     padding: 10px;
