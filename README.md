@@ -1,7 +1,7 @@
 # to-do-or-not-to-do
 Application designed for task management.
 
-![alt text]
+![alt text](assets/video/task-board-gif.gif)
 
 ## Introduction:
 
@@ -13,4 +13,4 @@ you can view the site at: https://jacqmcq.github.io/to-do-or-not-to-do/
 
 ## Source:
 
-AI was used to trobleshoot code for de-bugging drag and drop feture. Worked with classsmates in a group setting, per trobleshooting code for drag and drop JQuery ui as well. 
+AI was used to trobleshoot code for de-bugging drag and drop feture. Worked with classsmates in a group setting, per trobleshooting code for drag and drop JQuery ui as well. Referenced classmates GitHub https://github.com/horizonbound0. 
